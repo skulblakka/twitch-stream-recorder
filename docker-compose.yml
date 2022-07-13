@@ -4,7 +4,7 @@ services:
   tsr:
     image: ghcr.io/mkody/twitch-stream-recorder:master
     # You can also change the UID/GID and the username
-    # used in the countainer and build the image again
+    # used in the container and build the image again
     # with `--build` when launching your compose stack.
     build:
       context: .
@@ -21,6 +21,8 @@ services:
       - /path/to/recordings:/opt/recordings
     restart: unless-stopped
 
-  # Copy the whole "tsr" section multiple times
-  # if you want to run it for multiple streamers.
-  # Just rename the "tsr" to something else.
+  # If you want to run it for multiple streamers:
+  # - duplicate the whole "tsr" section
+  # - change the "tsr" service name to something else
+  #   (ie. `tsr-bobross`) as they have to be unique
+  # - and set the username in the `tsr_username` env
