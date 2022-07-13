@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  tsr:
+    image: ghcr.io/mkody/twitch-stream-recorder:master
+    # You can also change the UID/GID and the username
+    # used in the countainer and build the image again
+    # with `--build` when launching your compose stack.
+    build:
+      context: .
+      args:
+        UNAME: user
+        UID: 1000
+        GID: 1000
+    environment:
+      # You can set the streamer's username here which
+      # takes priority over the one set in the config.
+      - tsr_username=0kody
+    volumes:
+      - /path/to/config.py:/opt/config.py
+      - /path/to/recordings:/opt/recordings
+    restart: unless-stopped
+
+  # Copy the whole "tsr" section multiple times
+  # if you want to run it for multiple streamers.
+  # Just rename the "tsr" to something else.

@@ -30,28 +30,15 @@ Start the container with the following `docker run` command:
 docker run \
    -v /path/to/config.py:/opt/config.py \
    -v /path/to/recordings:/opt/recordings \
-   ghcr.io/stefomat/twitch-stream-recorder:master
+   ghcr.io/mkody/twitch-stream-recorder:master
 ```
 The options in this command:  
 `-v /path/to/config.py:/opt/config.py` Map the created config file to a defined location in the container, so the python script can find it.  
 `-v /path/to/recordings:/opt/recordings` Map a folder of your choice to a defined location in the container. This is the place where all recordings will be saved to.  
-`ghcr.io/stefomat/twitch-stream-recorder:master` Use the "master" tag for the latest version, that's the GitHub branch from which the Docker images will be built.
+`ghcr.io/mkody/twitch-stream-recorder:master` Use the "master" tag for the latest version, that's the GitHub branch from which the Docker images will be built.
 
-You can also run it as a `docker-compose` setup.
-
-```bash
----
-version: "2"
-
-services:
-  twitch-stream-recorder:
-    image: ghcr.io/mkody/twitch-stream-recorder:master
-    container_name: twitch-stream-recorder
-    volumes:
-      - /path/to/config.py:/opt/config.py
-      - /path/to/recordings:/opt/recordings
-    restart: unless-stopped
-```
+You can also run it as a Docker Compose setup, see [docker-compose.yml](docker-compose.yml).
+If you want to build the image while using Compose (ie. you changed the UID/GID) run `docker-compose up -d --build`.
 
 ## Notes
 Open TODOs for future improvements:

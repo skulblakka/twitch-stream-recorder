@@ -26,11 +26,11 @@ class TwitchRecorder:
         # global configuration
         self.ffmpeg_path = "ffmpeg"
         self.disable_ffmpeg = False
-        self.refresh = 15
+        self.refresh = 60
         self.root_path = config.root_path
 
         # user configuration
-        self.username = config.username
+        self.username = os.getenv('tsr_username', config.username)
         self.quality = "best"
 
         # twitch configuration
@@ -129,7 +129,7 @@ class TwitchRecorder:
                               datetime.datetime.now().strftime("%Hh%Mm%Ss"))
                 time.sleep(300)
             elif status == TwitchResponseStatus.OFFLINE:
-                logging.info("%s currently offline, checking again in %s seconds", self.username, self.refresh)
+                # logging.info("%s currently offline, checking again in %s seconds", self.username, self.refresh)
                 time.sleep(self.refresh)
             elif status == TwitchResponseStatus.UNAUTHORIZED:
                 logging.info("unauthorized, will attempt to log back in immediately")
@@ -166,7 +166,7 @@ class TwitchRecorder:
 def main(argv):
     twitch_recorder = TwitchRecorder()
     usage_message = "twitch-recorder.py -u <username> -q <quality>"
-    logging.basicConfig(filename="twitch-recorder.log", level=logging.INFO)
+    logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), "twitch-recorder.log"), level=logging.INFO)
     logging.getLogger().addHandler(logging.StreamHandler())
 
     try:
