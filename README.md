@@ -45,7 +45,7 @@ version: "2"
 
 services:
   twitch-stream-recorder:
-    image: ghcr.io/stefomat/twitch-stream-recorder:master
+    image: ghcr.io/mkody/twitch-stream-recorder:master
     container_name: twitch-stream-recorder
     volumes:
       - /path/to/config.py:/opt/config.py
@@ -55,7 +55,7 @@ services:
 
 ## Notes
 Open TODOs for future improvements:
-- [ ] Run process as non-root user
+- [x] Run process as non-root user
 - [ ] Add "latest" tag
 - [ ] Switch to alpine based images
 - [ ] Run GitHub Action on a regular base
